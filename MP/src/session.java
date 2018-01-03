@@ -1,14 +1,3 @@
-import java.io.File;
-import java.io.IOException;
-
-import javax.sound.midi.*;
-
-import org.jfugue.*;
-import org.jfugue.pattern.Pattern;
-import org.jfugue.pattern.PatternProducer;
-import org.jfugue.player.Player;
-import org.jfugue.rhythm.Rhythm;
-
 public class session {
 	public enum Mood {
 		Happy, Sad

@@ -10,10 +10,10 @@ public class sessionFrame extends JFrame {
     private JPanel panel1;
     private JButton buttons[];
     private JLabel labels[];
-    private bar frameBar;
+    private bolleanBar frameBar;
     private session frameSsession;
 
-    public sessionFrame(session session , bar bar )
+    public sessionFrame(session session , bolleanBar bar )
     {
         this.frameSsession = session;
         frameBar = bar;
@@ -42,6 +42,7 @@ public class sessionFrame extends JFrame {
                 JButton b = (JButton)e.getSource();
                 int buttonIndex = Integer.parseInt(b.getName());
 
+                System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
                     notesDialog dialog = new notesDialog(frameSsession);
@@ -53,20 +54,27 @@ public class sessionFrame extends JFrame {
 
                     if (dialog.getChord() != null)
                     {
-
                         f.setLabel(buttonIndex, "");
-                        b.setBackground(null);
-                        frameBar.ternToEmptyNoteInIndex(buttonIndex);
+                        //b.setBackground(null);
+                        boolean isValid;
 
-                        int j = 1;
-                        while(j + buttonIndex  < barSize && frameBar.isFakeNoteOnindex(j + buttonIndex))
+
+                        frameBar.changeNote(buttonIndex , "empty" , 0);
+
+                        int j = 0;
+                        while((j + buttonIndex  < barSize) && (frameBar.isEmptyNoteInIndex(j + buttonIndex)))
                         {
+
                             buttons[buttonIndex + j].setBackground(null);
-                            frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
+                          // frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
                             j++;
                         }
 
-                        while (dialog.getDuration() != 0 && (dialog.getDuration() * 32 + buttonIndex -1 > barSize || !f.isValidDur(buttonIndex, (int) (dialog.getDuration() * 32))))
+                        isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
+
+                        //                       // frameBar.changeNote(buttonIndex , "empty" , 0);
+
+                        while (dialog.getDuration() != 0 && !isValid) //(dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
                             notesDialog.infoBox("!!!", "!!!");
                             dialog.setVisible(true);
@@ -84,13 +92,13 @@ public class sessionFrame extends JFrame {
                             b.setOpaque(true);
                             b.setBackground(randomColor);
 
-                            frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
+
 
                             for (int i = 1; i < dialog.getDuration() * 32; i++)
                             {
                                 buttons[buttonIndex + i].setOpaque(true);
                                 buttons[buttonIndex + i].setBackground(randomColor);
-                                frameBar.ternToFakeNoteInIndex(buttonIndex + i);
+                                //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
                             }
                         }
 
@@ -125,8 +133,8 @@ public class sessionFrame extends JFrame {
                         // counter--;
                       }
 
-                      System.out.println(i + " " + counter);
                       labels[i].setText("R");
+                      System.out.println(i + " " + counter);
                       frameBar.changeNote( i , "R" , (counter/32.0));
                       i = j;
                   }
@@ -197,7 +205,7 @@ public class sessionFrame extends JFrame {
 
         for(int i = 1 ; i < len ; i++)
         {
-            if(!frameBar.isNoteFree(index + i)) {
+            if(!frameBar.isEmptyNoteInIndex(index + i)) {
                 isFree = false;
                 break;
             }
