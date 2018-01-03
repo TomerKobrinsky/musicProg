@@ -31,7 +31,9 @@ public class sessionFrame extends JFrame {
         buttons = new JButton[barSize];
         labels = new JLabel[barSize];
 
-       JButton play = new JButton();
+        JLabel labelBar = new JLabel();
+
+        JButton play = new JButton();
 
 
         ActionListener t  = (new ActionListener() {
@@ -42,7 +44,7 @@ public class sessionFrame extends JFrame {
                 JButton b = (JButton)e.getSource();
                 int buttonIndex = Integer.parseInt(b.getName());
 
-                System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
+               // System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
                     notesDialog dialog = new notesDialog(frameSsession);
@@ -144,6 +146,8 @@ public class sessionFrame extends JFrame {
                   }
               }
 
+              frameBar.printBar();
+
              frameBar.setBarToPlay();
              Player play = new Player();
              Pattern firstPattern = new Pattern(bar.getBarToPlay());
@@ -154,12 +158,18 @@ public class sessionFrame extends JFrame {
           }
       });
 
-        play.setName("Play");
+        play.setText("Play");
 
         play.addActionListener(a);
 
+        labelBar.setText("Bar");
+        play.setBounds(300, 20, 100 ,50);
+        //panel1.
+
+
         play.setBounds(10, 300, 100 ,50);
-        panel1.add(play);                                     
+        panel1.add(play);
+
 
         int counter = 0;
         int sum = 10;
