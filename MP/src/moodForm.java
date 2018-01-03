@@ -18,13 +18,8 @@ public class moodForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
-                JFrame frame1 = new JFrame();
-                barMakerForm bm = new barMakerForm(a);
-                frame1.setContentPane(bm.getPanel());
-                bm.setFrame(frame1);
-                frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame1.setSize(1500, 1000); // << not working!!!
-                frame1.setVisible(true);
+                sessionFrame f = new sessionFrame(a , new bolleanBar(1));
+                f.setVisible(true);
             }
         });
     }
