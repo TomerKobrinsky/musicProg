@@ -8,7 +8,7 @@ public class main {
 		session a = new session();
 
 
-		sessionFrame f = new sessionFrame(a , new bar(1));
+		sessionFrame f = new sessionFrame(a , new bolleanBar(1));
 
 		f.setVisible(true);
 

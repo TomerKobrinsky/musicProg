@@ -85,7 +85,7 @@ public class bar {
                             int NotesToDelete = (int) (oldLength * 32) - (int) (newLength * 32);
 
                             for (; NotesToDelete > i; NotesToDelete--) {
-                                barNotes[notesToChange + NotesToDelete].turnToTrueNote("empty", 0);
+                                barNotes[noteToSetIndex + NotesToDelete].turnToTrueNote("empty", 0);
                             }
 
                         }

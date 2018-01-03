@@ -10,10 +10,10 @@ public class sessionFrame extends JFrame {
     private JPanel panel1;
     private JButton buttons[];
     private JLabel labels[];
-    private bar frameBar;
+    private bolleanBar frameBar;
     private session frameSsession;
 
-    public sessionFrame(session session , bar bar )
+    public sessionFrame(session session , bolleanBar bar )
     {
         this.frameSsession = session;
         frameBar = bar;
@@ -55,18 +55,24 @@ public class sessionFrame extends JFrame {
                     {
                         f.setLabel(buttonIndex, "");
                         b.setBackground(null);
+                        boolean isValid = true;
+
+
+                        frameBar.changeNote(buttonIndex , "empty" , 0);
 
                         int j = 1;
-                        while(j + buttonIndex  < barSize && frameBar.isFakeNoteOnindex(j + buttonIndex))
+                        while(j + buttonIndex  < barSize && frameBar.isEmptyNoteInIndex(j + buttonIndex))
                         {
                             buttons[buttonIndex + j].setBackground(null);
                           //  frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
                             j++;
                         }
 
-                        frameBar.changeNote(buttonIndex , "empty" , 0);
+                        isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
-                        while (dialog.getDuration() != 0 && (dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
+                        //                       // frameBar.changeNote(buttonIndex , "empty" , 0);
+
+                        while (dialog.getDuration() != 0 && !isValid) //(dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
                             notesDialog.infoBox("!!!", "!!!");
                             dialog.setVisible(true);
@@ -84,7 +90,7 @@ public class sessionFrame extends JFrame {
                             b.setOpaque(true);
                             b.setBackground(randomColor);
 
-                            frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
+
 
                             for (int i = 1; i < dialog.getDuration() * 32; i++)
                             {
