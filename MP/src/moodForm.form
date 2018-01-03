@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="moodForm">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="FormLayout">
+    <rowspec value="center:101px:noGrow"/>
+    <rowspec value="top:45dlu:noGrow"/>
+    <rowspec value="center:174px:noGrow"/>
+    <rowspec value="top:3dlu:noGrow"/>
+    <rowspec value="center:max(d;4px):noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-1115905"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="a71d5" class="javax.swing.JLabel" binding="header">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+          <forms top="40" left="0" bottom="0" right="0" defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <font name="AppleGothic" size="48" style="1"/>
+          <foreground color="-8034089"/>
+          <labelFor value="aa862"/>
+          <text value="text"/>
+          <verticalAlignment value="1"/>
+          <verticalTextPosition value="1"/>
+        </properties>
+      </component>
+      <component id="aa862" class="javax.swing.JComboBox" binding="textComboBox" default-binding="true">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties>
+          <enabled value="true"/>
+          <font name="AppleGothic" size="18"/>
+          <model>
+            <item value="Happy"/>
+            <item value="Sad"/>
+          </model>
+        </properties>
+      </component>
+      <component id="3a12c" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms top="20" left="0" bottom="0" right="0" defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <font name="AppleGothic" size="36"/>
+          <foreground color="-6000129"/>
+          <text value="Choose your mood :)"/>
+        </properties>
+      </component>
+      <component id="75dfb" class="javax.swing.JButton" binding="nextButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <text value="Next"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
