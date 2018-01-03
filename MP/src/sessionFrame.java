@@ -53,20 +53,20 @@ public class sessionFrame extends JFrame {
 
                     if (dialog.getChord() != null)
                     {
-
                         f.setLabel(buttonIndex, "");
                         b.setBackground(null);
-                        frameBar.ternToEmptyNoteInIndex(buttonIndex);
 
                         int j = 1;
                         while(j + buttonIndex  < barSize && frameBar.isFakeNoteOnindex(j + buttonIndex))
                         {
                             buttons[buttonIndex + j].setBackground(null);
-                            frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
+                          //  frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
                             j++;
                         }
 
-                        while (dialog.getDuration() != 0 && (dialog.getDuration() * 32 + buttonIndex -1 > barSize || !f.isValidDur(buttonIndex, (int) (dialog.getDuration() * 32))))
+                        frameBar.changeNote(buttonIndex , "empty" , 0);
+
+                        while (dialog.getDuration() != 0 && (dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
                             notesDialog.infoBox("!!!", "!!!");
                             dialog.setVisible(true);
@@ -90,7 +90,7 @@ public class sessionFrame extends JFrame {
                             {
                                 buttons[buttonIndex + i].setOpaque(true);
                                 buttons[buttonIndex + i].setBackground(randomColor);
-                                frameBar.ternToFakeNoteInIndex(buttonIndex + i);
+                                //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
                             }
                         }
 
@@ -197,7 +197,7 @@ public class sessionFrame extends JFrame {
 
         for(int i = 1 ; i < len ; i++)
         {
-            if(!frameBar.isNoteFree(index + i)) {
+            if(!frameBar.isEmptyNoteInIndex(index + i)) {
                 isFree = false;
                 break;
             }

@@ -7,6 +7,7 @@ public class main {
 	public static void main(String[] args){
 		session a = new session();
 
+
 		sessionFrame f = new sessionFrame(a , new bar(1));
 
 		f.setVisible(true);
