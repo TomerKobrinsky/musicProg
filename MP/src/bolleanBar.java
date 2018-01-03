@@ -48,7 +48,7 @@ public class bolleanBar {
             // if the index of the note is not in the bar then it's an invalid index
 
 
-            if ((noteToSetIndex < 0) || (noteToSetIndex >= barNotes.length)) {
+            if ((noteToSetIndex < 0) || (noteToSetIndex > barNotes.length)) {
                 System.out.println("Invalid noteToSet: " + noteToSetIndex);
                 return false;
             } else
@@ -87,9 +87,9 @@ public class bolleanBar {
                                 barNotes[noteToSetIndex + i].turnToFakeNote();
                             }
                             if (newLength < oldLength) {
-                                int NotesToDelete = (int) (oldLength * 32) - (int) (newLength * 32);
+                                int NotesToDelete = (int) (oldLength * 32) - (int) (newLength * 32) -1;
 
-                                for (; NotesToDelete > i; NotesToDelete--) {
+                                for (; NotesToDelete >= i; NotesToDelete--) {
                                     barNotes[noteToSetIndex + NotesToDelete].turnToTrueNote("empty", 0);
                                 }
 

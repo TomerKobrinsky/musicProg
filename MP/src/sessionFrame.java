@@ -42,6 +42,7 @@ public class sessionFrame extends JFrame {
                 JButton b = (JButton)e.getSource();
                 int buttonIndex = Integer.parseInt(b.getName());
 
+                System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
                     notesDialog dialog = new notesDialog(frameSsession);
@@ -54,17 +55,18 @@ public class sessionFrame extends JFrame {
                     if (dialog.getChord() != null)
                     {
                         f.setLabel(buttonIndex, "");
-                        b.setBackground(null);
-                        boolean isValid = true;
+                        //b.setBackground(null);
+                        boolean isValid;
 
 
                         frameBar.changeNote(buttonIndex , "empty" , 0);
 
-                        int j = 1;
-                        while(j + buttonIndex  < barSize && frameBar.isEmptyNoteInIndex(j + buttonIndex))
+                        int j = 0;
+                        while((j + buttonIndex  < barSize) && (frameBar.isEmptyNoteInIndex(j + buttonIndex)))
                         {
+
                             buttons[buttonIndex + j].setBackground(null);
-                          //  frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
+                          // frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
                             j++;
                         }
 
@@ -131,8 +133,8 @@ public class sessionFrame extends JFrame {
                         // counter--;
                       }
 
-                      System.out.println(i + " " + counter);
                       labels[i].setText("R");
+                      System.out.println(i + " " + counter);
                       frameBar.changeNote( i , "R" , (counter/32.0));
                       i = j;
                   }
