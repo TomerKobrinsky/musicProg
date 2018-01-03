@@ -24,6 +24,6 @@ public class main {
 		frame.setSize(1500, 1000); // << not working!!!
 		frame.setVisible(true);
 		*/
-		
+
 	}
 }
