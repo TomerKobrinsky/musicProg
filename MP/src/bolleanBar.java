@@ -86,6 +86,7 @@ public class bolleanBar {
                                 }
                                 barNotes[noteToSetIndex + i].turnToFakeNote();
                             }
+                            System.out.println(oldLength);
                             if (newLength < oldLength) {
                                 int NotesToDelete = (int) (oldLength * 32) - (int) (newLength * 32) -1;
 

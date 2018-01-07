@@ -137,7 +137,7 @@ public class selectedNote {
 			this.noteToPlay = noteWithLength + "s";
 		} else
 		// length is 1/32
-		if (thislength == 0.5) {
+		if (thislength == 0.03125) {
 			this.noteToPlay = noteWithLength + "t";
 		} else
 		// length is 0
