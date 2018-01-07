@@ -44,9 +44,8 @@ public class bar {
         // the sum of the lengths of the entire notes of the bar(with the new
         // length)
         double newSumOfLengths = sumOfLengths - barNotes[noteToSetIndex].getLength() + newLength;
+
         // if the index of the note is not in the bar then it's an invalid index
-
-
         if ((noteToSetIndex < 0) || (noteToSetIndex >= barNotes.length)) {
             System.out.println("Invalid noteToSet: " + noteToSetIndex);
         } else
