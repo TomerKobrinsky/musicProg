@@ -59,20 +59,7 @@ public class sessionFrame extends JFrame {
                     if (dialog.getChord() != null)
                     {
                         f.setLabel(buttonIndex, "");
-                        //b.setBackground(null);
-                        boolean isValid = true;
-
-
-                        frameBar.changeNote(buttonIndex , "empty" , 0);
-
-                        int j = 0;
-                        while((j + buttonIndex  < barSize) && (frameBar.isEmptyNoteInIndex(j + buttonIndex)))
-                        {
-
-                            buttons[buttonIndex + j].setBackground(null);
-                          // frameBar.ternToEmptyNoteInIndex(buttonIndex + j );
-                            j++;
-                        }
+                        boolean isValid;
 
                         isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
@@ -84,6 +71,7 @@ public class sessionFrame extends JFrame {
 
                             notesDialog.infoBox("!!!", "!!!");
                             dialog.setVisible(true);
+                            isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
                         }
 
@@ -168,13 +156,18 @@ public class sessionFrame extends JFrame {
         ActionListener nextAction = (new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                frameBar.setBarToPlay();
                 String song = frameBar.getBarToPlay();
 
                 try {
-                    sendSong send = new sendSong("127.0.0.1", 12345, song);
+                    sendSong send = new sendSong("192.168.0.108", 12345, song);
                     send.run();
-                    while (send.getMessagesHandler().getNewSong() != null){
-                        //do nothing
+                    while (send.getMessagesHandler().getNewSong() == null){
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
                     }
                     Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
                     p.setTempo(send.getMessagesHandler().getTempo());

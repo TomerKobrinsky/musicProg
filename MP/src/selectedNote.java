@@ -157,4 +157,15 @@ public class selectedNote {
 
 		return isFree;
 	}
+
+	public boolean isNotEmptyNote()
+	{
+		boolean isNote = false;
+
+		if (notePitch.compareTo("empty") != 0) {
+			isNote = true;
+		}
+
+		return isNote;
+	}
 }
