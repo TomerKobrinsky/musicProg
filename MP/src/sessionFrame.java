@@ -160,17 +160,18 @@ public class sessionFrame extends JFrame {
                 String song = frameBar.getBarToPlay();
 
                 try {
-                    sendSong send = new sendSong("192.168.0.108", 12345, song);
+                    sendSong send = new sendSong("127.0.0.1", 12345, song);
                     send.run();
                     while (send.getMessagesHandler().getNewSong() == null){
                         try {
-                            Thread.sleep(1000);
+                           Thread.sleep(1000);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
                     }
-                    Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
-                    p.setTempo(send.getMessagesHandler().getTempo());
+                    System.out.println(send.getMessagesHandler().getNewSong());
+                    Pattern p = send.getMessagesHandler().getNewSong();
+                    p.setTempo(Integer.parseInt(send.getMessagesHandler().getTempo()));
 
                     dispose();
                     JFrame frame = new JFrame();

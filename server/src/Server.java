@@ -46,8 +46,6 @@ public class Server {
     }
 
     void generateSongsTogether(String song1, String song2, int songTempo) {
-        System.out.println("jjjj");
-
         Pattern song = new Pattern("V0 I[Piano] " + song1 + " V1 I[flute] " + song2);
         for (PrintStream client : this.clients) {
             client.println(song);
