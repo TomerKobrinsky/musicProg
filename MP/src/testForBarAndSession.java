@@ -27,7 +27,7 @@ import javax.swing.*;
 			Pattern firstPattern = new Pattern(bar.getBarToPlay());
 			firstPattern.setTempo(session.songTempo);
 			
-			play.play(firstPattern);
+			play.play("Aqqq");
 			System.out.println(bar.getBarToPlay());
 			
 			

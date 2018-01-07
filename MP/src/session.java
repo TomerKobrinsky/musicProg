@@ -161,7 +161,7 @@ public class session {
 	 * initialize the current session
 	 */
 	public session() {
-		Mood Input = Mood.Happy;
+		Mood Input = Mood.Sad;
 		setKey(Input);
 		setChords();
 		setTempo();
