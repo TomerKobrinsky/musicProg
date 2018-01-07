@@ -155,6 +155,14 @@ public class bolleanBar {
             return barNotes[index].getIsFakeNote();
         }
 
+        public void printBar()
+        {
+            for(int i = 0 ; i < barSize ; i++)
+            {
+                System.out.println(i + " : " + barNotes[i].getNotePitch());
+            }
+        }
+
 
 
 }

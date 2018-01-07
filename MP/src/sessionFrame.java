@@ -31,7 +31,9 @@ public class sessionFrame extends JFrame {
         buttons = new JButton[barSize];
         labels = new JLabel[barSize];
 
-       JButton play = new JButton();
+        JLabel labelBar = new JLabel();
+
+        JButton play = new JButton();
 
 
         ActionListener t  = (new ActionListener() {
@@ -42,7 +44,7 @@ public class sessionFrame extends JFrame {
                 JButton b = (JButton)e.getSource();
                 int buttonIndex = Integer.parseInt(b.getName());
 
-                System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
+               // System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
                     notesDialog dialog = new notesDialog(frameSsession);
@@ -113,6 +115,7 @@ public class sessionFrame extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
 
+              /*
               int i = 0 ;
               int counter;
               int j;
@@ -133,8 +136,6 @@ public class sessionFrame extends JFrame {
                         // counter--;
                       }
 
-                      labels[i].setText("R");
-                      System.out.println(i + " " + counter);
                       frameBar.changeNote( i , "R" , (counter/32.0));
                       i = j;
                   }
@@ -143,8 +144,13 @@ public class sessionFrame extends JFrame {
                        i++;
                   }
               }
+              */
+              frameBar.printBar();
 
              frameBar.setBarToPlay();
+
+            // for(int i < x)
+
              Player play = new Player();
              Pattern firstPattern = new Pattern(bar.getBarToPlay());
              firstPattern.setTempo(session.songTempo);
@@ -154,12 +160,18 @@ public class sessionFrame extends JFrame {
           }
       });
 
-        play.setName("Play");
+        play.setText("Play");
 
         play.addActionListener(a);
 
+        labelBar.setText("Bar");
+        play.setBounds(300, 20, 100 ,50);
+        //panel1.
+
+
         play.setBounds(10, 300, 100 ,50);
-        panel1.add(play);                                     
+        panel1.add(play);
+
 
         int counter = 0;
         int sum = 10;
