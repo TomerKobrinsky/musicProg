@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.Random;
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
@@ -12,6 +13,7 @@ public class sessionFrame extends JFrame {
     private JLabel labels[];
     private bolleanBar frameBar;
     private session frameSsession;
+    private JButton nextButton;
 
     public sessionFrame(session session , bolleanBar bar )
     {
@@ -163,7 +165,39 @@ public class sessionFrame extends JFrame {
           }
       });
 
-        play.setText("Play");
+        ActionListener nextAction = (new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String song = frameBar.getBarToPlay();
+
+                try {
+                    sendSong send = new sendSong("127.0.0.1", 12345, song);
+                    send.run();
+                    while (send.getMessagesHandler().getNewSong() != null){
+                        //do nothing
+                    }
+                    Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
+                    p.setTempo(send.getMessagesHandler().getTempo());
+
+                    dispose();
+                    JFrame frame = new JFrame();
+                    playSongForm form = new playSongForm(session, p);
+                    frame.setContentPane(form.getPanel());
+                    form.setFrame(frame);
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(1500, 1000); // << not working!!!
+                    frame.setVisible(true);
+
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+            }
+        });
+
+
+
+                play.setText("Play");
 
         play.addActionListener(a);
 
@@ -174,6 +208,12 @@ public class sessionFrame extends JFrame {
 
         play.setBounds(10, 300, 100 ,50);
         panel1.add(play);
+
+        nextButton = new JButton("Next");
+        nextButton.setBounds(200, 300, 100 ,50);
+        nextButton.addActionListener(nextAction);
+        panel1.add(nextButton);
+
 
 
         int counter = 0;
