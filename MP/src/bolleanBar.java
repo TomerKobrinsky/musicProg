@@ -167,9 +167,11 @@ public class bolleanBar {
     {
         boolean isValid = true;
 
+        int lenght = ((int) (newLength * 32));
+
         if(barNotes[noteToSetIndex].isNoteIsFree())
         {
-            for(int i = noteToSetIndex + 1 ; i < newLength*32 && isValid ; i++)
+            for(int i = noteToSetIndex + 1 ; i <  noteToSetIndex + lenght && isValid ; i++)
             {
                 if(i >= barNotes.length || !barNotes[i].isNoteIsFree()  )
                 {
@@ -179,7 +181,7 @@ public class bolleanBar {
 
             if(isValid)
             {
-                for(int i = noteToSetIndex + 1 ; i < newLength*32  ; i++)
+                for(int i = noteToSetIndex + 1 ; i < noteToSetIndex + lenght  ; i++)
                 {
                     barNotes[i].turnToFakeNote();
                 }
@@ -193,9 +195,9 @@ public class bolleanBar {
         }
         else
         {
-            for(int i = noteToSetIndex + 1 ; i < newLength*32  ; i++)
+            for(int i = noteToSetIndex + 1 ; i < noteToSetIndex + lenght && isValid  ; i++)
             {
-                if(i >= barNotes.length || !barNotes[i].getIsFakeNote() )
+                if(i >= barNotes.length || barNotes[i].isNotEmptyNote() )
                 {
                     isValid = false;
                 }
@@ -204,21 +206,17 @@ public class bolleanBar {
             if(isValid)
             {
 
-                for (int i = noteToSetIndex + (int)newLength*32 ; i < noteToSetIndex + barNotes[noteToSetIndex].getLength() ; i++)
+                for (int i = noteToSetIndex + lenght ; i < noteToSetIndex + (int)(barNotes[noteToSetIndex].getLength()*32) ; i++)
                 {
                     barNotes[i].turnToTrueNote("empty" , 0.0);
                 }
 
-                for(int i = noteToSetIndex + 1 ; i < newLength*32 ; i++)
+                for(int i = noteToSetIndex + 1 ; i < noteToSetIndex + lenght ; i++)
                 {
                     barNotes[i].turnToFakeNote();
                 }
 
-
-
                 sumOfLengths += (newLength - barNotes[noteToSetIndex].getLength());
-
-
                 barNotes[noteToSetIndex].setLength(newLength);
                 barNotes[noteToSetIndex].setNotePitch(newNotePitch);
 
@@ -228,6 +226,9 @@ public class bolleanBar {
 
         return isValid;
     }
+
+
+
 
 
 

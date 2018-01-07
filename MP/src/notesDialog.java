@@ -179,4 +179,7 @@ public class notesDialog extends JDialog {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
+
+
+
 }
