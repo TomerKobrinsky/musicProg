@@ -41,7 +41,7 @@ public class bolleanBar {
          * @param newNotePitch   - the pitch of the note
          * @param newLength      - the length of the note
          */
-        public boolean changeNote(int noteToSetIndex, String newNotePitch, double newLength) {
+        public boolean changeNote1(int noteToSetIndex, String newNotePitch, double newLength) {
             // the sum of the lengths of the entire notes of the bar(with the new
             // length)
             double newSumOfLengths = sumOfLengths - barNotes[noteToSetIndex].getLength() + newLength;
@@ -162,6 +162,72 @@ public class bolleanBar {
                 System.out.println(i + " : " + barNotes[i].getNotePitch());
             }
         }
+
+    public boolean changeNote(int noteToSetIndex, String newNotePitch, double newLength)
+    {
+        boolean isValid = true;
+
+        if(barNotes[noteToSetIndex].isNoteIsFree())
+        {
+            for(int i = noteToSetIndex + 1 ; i < newLength*32 && isValid ; i++)
+            {
+                if(i >= barNotes.length || !barNotes[i].isNoteIsFree()  )
+                {
+                    isValid = false;
+                }
+            }
+
+            if(isValid)
+            {
+                for(int i = noteToSetIndex + 1 ; i < newLength*32  ; i++)
+                {
+                    barNotes[i].turnToFakeNote();
+                }
+
+                sumOfLengths += newLength;
+
+                barNotes[noteToSetIndex].setLength(newLength);
+                barNotes[noteToSetIndex].setNotePitch(newNotePitch);
+
+            }
+        }
+        else
+        {
+            for(int i = noteToSetIndex + 1 ; i < newLength*32  ; i++)
+            {
+                if(i >= barNotes.length || !barNotes[i].getIsFakeNote() )
+                {
+                    isValid = false;
+                }
+            }
+
+            if(isValid)
+            {
+
+                for (int i = noteToSetIndex + (int)newLength*32 ; i < noteToSetIndex + barNotes[noteToSetIndex].getLength() ; i++)
+                {
+                    barNotes[i].turnToTrueNote("empty" , 0.0);
+                }
+
+                for(int i = noteToSetIndex + 1 ; i < newLength*32 ; i++)
+                {
+                    barNotes[i].turnToFakeNote();
+                }
+
+
+
+                sumOfLengths += (newLength - barNotes[noteToSetIndex].getLength());
+
+
+                barNotes[noteToSetIndex].setLength(newLength);
+                barNotes[noteToSetIndex].setNotePitch(newNotePitch);
+
+
+            }
+        }
+
+        return isValid;
+    }
 
 
 

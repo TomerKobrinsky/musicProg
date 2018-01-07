@@ -58,7 +58,7 @@ public class sessionFrame extends JFrame {
                     {
                         f.setLabel(buttonIndex, "");
                         //b.setBackground(null);
-                        boolean isValid;
+                        boolean isValid = true;
 
 
                         frameBar.changeNote(buttonIndex , "empty" , 0);
@@ -76,10 +76,13 @@ public class sessionFrame extends JFrame {
 
                         //                       // frameBar.changeNote(buttonIndex , "empty" , 0);
 
+
                         while (dialog.getDuration() != 0 && !isValid) //(dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
+
                             notesDialog.infoBox("!!!", "!!!");
                             dialog.setVisible(true);
+
                         }
 
 

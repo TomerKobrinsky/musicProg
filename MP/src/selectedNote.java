@@ -56,7 +56,7 @@ public class selectedNote {
 	 */
 	public void setLength(double length) {
 		// (length <= 1) &&
-		if ((length > 0)) {
+		if ((length >= 0)) {
 			this.length = length;
 			setNoteToPlay();
 		} else {

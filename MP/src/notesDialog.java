@@ -78,7 +78,15 @@ public class notesDialog extends JDialog {
                 b.setOpaque(true);
                 b.setEnabled(false);
                 b.setBackground(Color.green);
-                chord = b.getText();
+
+                if(b.getText().compareTo("Rest") == 0)
+                {
+                    chord = "R";
+                }
+                else {
+
+                    chord = b.getText();
+                }
                 selectedButton = b;
             }
         };
@@ -93,14 +101,14 @@ public class notesDialog extends JDialog {
             pane.add(buttons[i]);
             x += 40;
         }
-        buttons[buttons.length-1] = new JButton("Break");
+        buttons[buttons.length-1] = new JButton("Rest");
         buttons[buttons.length-1].setBounds(100,75,100,25);
         buttons[buttons.length-1].addActionListener(buttonAction);
         pane.add(buttons[buttons.length-1]);
         this.buttonOK.setBounds(230,200,70,30);
         this.buttonDelete.setBounds(0,200,70,30);
         this.buttonDelete.setText("Delete");
-        String[] list = { "1", "1/2", "1/8", "1/16", "1/32" };
+        String[] list = { "1", "1/2","1/4" , "1/8", "1/16", "1/32" };
         this.durationBox = new JComboBox(list);
         this.durationBox.setBounds(100, 110,100,100);
         this.label1 = new JLabel("Choose Chord");
