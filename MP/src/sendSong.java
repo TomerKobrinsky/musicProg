@@ -29,16 +29,15 @@ public class sendSong {
         this.messagesHandler = new ReceivedMessagesHandler(client.getInputStream());
         new Thread(messagesHandler).start();
 
-        // ask for a nickname
         Scanner sc = new Scanner(System.in);
-
         // read messages from keyboard and send to server
         System.out.println("Send messages: ");
-        while (sc.hasNextLine()) {
-        }
-
+        PrintStream output = new PrintStream(client.getOutputStream());
+        System.out.println(song);
+        output.close();
         sc.close();
         client.close();
+
     }
 
     public ReceivedMessagesHandler getMessagesHandler() {
@@ -65,9 +64,6 @@ class ReceivedMessagesHandler implements Runnable {
         Scanner s = new Scanner(server);
         while (s.hasNextLine()) {
             newSong = s.nextLine();
-            System.out.println(newSong);
-            tempo = s.nextLine();
-            System.out.println(tempo);
         }
         s.close();
     }
