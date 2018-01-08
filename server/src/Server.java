@@ -39,13 +39,16 @@ public class Server {
 
             // add client message to list
             this.clients.add(new PrintStream(client.getOutputStream()));
+            System.out.println("333");
 
             // create a new thread for client handling
-            new Thread(new ClientHandler(this, client.getInputStream())).start();
+            new Thread(new ClientHandler(this, client.getInputStream(), this.clients.size())).start();
         }
     }
 
     void generateSongsTogether(String song1, String song2, int songTempo) {
+        System.out.println("222");
+
         Pattern song = new Pattern("V0 I[Piano] " + song1 + " V1 I[flute] " + song2);
         for (PrintStream client : this.clients) {
             client.println(song);
@@ -56,26 +59,27 @@ public class Server {
 
 class ClientHandler implements Runnable {
 
+    private int counter;
     private Server server;
     private InputStream client;
 
-    public ClientHandler(Server server, InputStream client) {
+    public ClientHandler(Server server, InputStream client, int size) {
         this.server = server;
         this.client = client;
+        this.counter = size;
     }
 
     @Override
     public void run() {
         String song1 ="";
         String song2 ="";
-        int counter = 0;
         int songTempo = 60 + (int) (120 * Math.random());
 
+        System.out.println("111");
 
         // when there is a new message, broadcast to all
         Scanner sc = new Scanner(this.client);
         while (sc.hasNextLine()) {
-            counter++;
             if(counter == 1)
                 song1 = sc.nextLine();
             if(counter == 2) {
