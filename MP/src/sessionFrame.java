@@ -49,6 +49,8 @@ public class sessionFrame extends JFrame {
                // System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
+                    Color currentColor = b.getBackground();
+                    b.setBackground(Color.green);
                     notesDialog dialog = new notesDialog(frameSsession);
                     dialog.setSize(300, 260);
                     dialog.setVisible(true);
@@ -75,10 +77,8 @@ public class sessionFrame extends JFrame {
 
                         }
 
-
                         if(dialog.getChord().compareTo("empty") != 0 )
                         {
-
                             f.setLabel(buttonIndex, dialog.getChord());
 
                             Random r = new Random();
@@ -87,14 +87,19 @@ public class sessionFrame extends JFrame {
                             b.setOpaque(true);
                             b.setBackground(randomColor);
 
-
-
                             for (int i = 1; i < dialog.getDuration() * 32; i++)
                             {
                                 buttons[buttonIndex + i].setOpaque(true);
                                 buttons[buttonIndex + i].setBackground(randomColor);
                                 //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
                             }
+                        }
+
+                        for (int i = buttonIndex + (int)dialog.getDuration()*32; i < barSize; i++)
+                        {
+                            if(frameBar.isNoteFree(i))
+                            buttons[i].setBackground(null);
+                            //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
                         }
 
                     }
@@ -138,8 +143,9 @@ public class sessionFrame extends JFrame {
                   }
               }
               */
-              frameBar.printBar();
+           //   frameBar.printBar();
 
+            //  if()
              frameBar.setBarToPlay();
 
             // for(int i < x)
@@ -147,7 +153,7 @@ public class sessionFrame extends JFrame {
              Player play = new Player();
              Pattern firstPattern = new Pattern(bar.getBarToPlay());
              firstPattern.setTempo(session.songTempo);
-             System.out.println(frameBar.getBarToPlay());
+             System.out.println(frameBar.getSumOfLengths());
 
 
           }

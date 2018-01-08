@@ -169,7 +169,7 @@ public class bolleanBar {
 
         int lenght = ((int) (newLength * 32));
 
-        if(barNotes[noteToSetIndex].isNoteIsFree())
+        if(!barNotes[noteToSetIndex].isNotEmptyNote())
         {
             for(int i = noteToSetIndex + 1 ; i <  noteToSetIndex + lenght && isValid ; i++)
             {
@@ -181,12 +181,12 @@ public class bolleanBar {
 
             if(isValid)
             {
+                sumOfLengths += newLength;
+
                 for(int i = noteToSetIndex + 1 ; i < noteToSetIndex + lenght  ; i++)
                 {
                     barNotes[i].turnToFakeNote();
                 }
-
-                sumOfLengths += newLength;
 
                 barNotes[noteToSetIndex].setLength(newLength);
                 barNotes[noteToSetIndex].setNotePitch(newNotePitch);
@@ -205,8 +205,11 @@ public class bolleanBar {
 
             if(isValid)
             {
+                sumOfLengths += (newLength - barNotes[noteToSetIndex].getLength());
 
-                for (int i = noteToSetIndex + lenght ; i < noteToSetIndex + (int)(barNotes[noteToSetIndex].getLength()*32) ; i++)
+                int oldLenght = (int)(barNotes[noteToSetIndex].getLength()*32);
+
+                for (int i = noteToSetIndex + lenght ; i < noteToSetIndex + oldLenght ; i++)
                 {
                     barNotes[i].turnToTrueNote("empty" , 0.0);
                 }
@@ -216,7 +219,6 @@ public class bolleanBar {
                     barNotes[i].turnToFakeNote();
                 }
 
-                sumOfLengths += (newLength - barNotes[noteToSetIndex].getLength());
                 barNotes[noteToSetIndex].setLength(newLength);
                 barNotes[noteToSetIndex].setNotePitch(newNotePitch);
 
@@ -226,6 +228,12 @@ public class bolleanBar {
 
         return isValid;
     }
+
+    public double getSumOfLengths()
+    {
+        return sumOfLengths;
+    }
+
 
 
 
