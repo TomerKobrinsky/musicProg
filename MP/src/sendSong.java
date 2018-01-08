@@ -32,7 +32,6 @@ public class sendSong {
         new Thread(this.messagesHandler).start();
 
         output.println(song);
-        output.println(song);
 
 
     }
