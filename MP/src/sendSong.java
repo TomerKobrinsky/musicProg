@@ -37,6 +37,7 @@ public class sendSong {
     }
 
     public ReceivedMessagesHandler getMessagesHandler() {
+        System.out.println(this.messagesHandler);
         return messagesHandler;
     }
 }
@@ -45,7 +46,7 @@ class ReceivedMessagesHandler implements Runnable {
     private Socket client;
     private PrintStream output;
     private InputStream server;
-    private Pattern newSong;
+    private String newSong;
     private String tempo;
 
 
@@ -61,7 +62,7 @@ class ReceivedMessagesHandler implements Runnable {
     public void run() {
         // receive server messages and print out to screen
         Scanner s = new Scanner(server);
-        this.newSong = new Pattern(s.nextLine());
+        this.newSong = s.nextLine();
         this.tempo = s.nextLine();
         System.out.println(newSong+"    "+ tempo);
         s.close();
@@ -73,7 +74,7 @@ class ReceivedMessagesHandler implements Runnable {
         }
     }
 
-    public Pattern getNewSong() {
+    public String getNewSong() {
         return newSong;
     }
 

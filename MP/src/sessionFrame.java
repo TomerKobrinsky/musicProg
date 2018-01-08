@@ -181,7 +181,7 @@ public class sessionFrame extends JFrame {
                         }
                     }
                     System.out.println(send.getMessagesHandler().getNewSong());
-                    Pattern p = send.getMessagesHandler().getNewSong();
+                    Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
                     p.setTempo(Integer.parseInt(send.getMessagesHandler().getTempo()));
 
                     dispose();
