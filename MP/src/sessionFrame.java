@@ -25,9 +25,10 @@ public class sessionFrame extends JFrame {
         panel1 = new JPanel();
         panel1.setLayout(null);
 
-        panel1.setSize(750 , 500);
         this.setContentPane(panel1);
-        this.setSize(750, 500);
+        setSize(1500, 1000);
+        panel1.setBackground(new Color(238,248,255));
+
 
 
         buttons = new JButton[barSize];
@@ -71,7 +72,7 @@ public class sessionFrame extends JFrame {
                         while (dialog.getDuration() != 0 && !isValid) //(dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
 
-                            notesDialog.infoBox("!!!", "!!!");
+                            notesDialog.infoBox("cant choose this duration", "error");
                             dialog.setVisible(true);
                             isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
@@ -206,22 +207,21 @@ public class sessionFrame extends JFrame {
         play.addActionListener(a);
 
         labelBar.setText("Bar");
-        play.setBounds(300, 20, 100 ,50);
         //panel1.
 
 
-        play.setBounds(10, 300, 100 ,50);
+        play.setBounds(400, 400, 100 ,50);
         panel1.add(play);
 
         nextButton = new JButton("Next");
-        nextButton.setBounds(200, 300, 100 ,50);
+        nextButton.setBounds(900, 400, 100 ,50);
         nextButton.addActionListener(nextAction);
         panel1.add(nextButton);
 
 
 
         int counter = 0;
-        int sum = 10;
+        int sum = 350;
 
         for(int i = 0; i < barSize; i++)
         {

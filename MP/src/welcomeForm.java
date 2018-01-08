@@ -22,7 +22,7 @@ public class welcomeForm extends JFrame{
                 frame1.setContentPane(mf.getPanel());
                 mf.setFrame(frame1);
                 frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame1.setSize(1500, 1000); // << not working!!!
+                frame1.setSize(1500, 1000);
                 frame1.setVisible(true);
             }
         });
