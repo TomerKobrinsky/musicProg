@@ -171,7 +171,7 @@ public class sessionFrame extends JFrame {
                 String song = frameBar.getBarToPlay();
 
                 try {
-                    sendSong send = new sendSong("192.168.0.108", 12345, song);
+                    sendSong send = new sendSong("127.0.0.1", 12345, song);
                     send.run();
                     while (send.getMessagesHandler().getNewSong() == null){
                         try {
