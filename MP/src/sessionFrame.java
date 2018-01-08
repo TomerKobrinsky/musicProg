@@ -103,6 +103,10 @@ public class sessionFrame extends JFrame {
                         }
 
                     }
+                    else
+                    {
+                        b.setBackground(currentColor);
+                    }
 
                 }
             }
@@ -166,7 +170,7 @@ public class sessionFrame extends JFrame {
                 String song = frameBar.getBarToPlay();
 
                 try {
-                    sendSong send = new sendSong("127.0.0.1", 12345, song);
+                    sendSong send = new sendSong("192.168.0.108", 12345, song);
                     send.run();
                     while (send.getMessagesHandler().getNewSong() == null){
                         try {
@@ -227,12 +231,8 @@ public class sessionFrame extends JFrame {
                 counter = 0;
             }
             labels[i] = new JLabel();
-            //labels[i].setText("" + i);
             buttons[i] = new JButton("");
-            //buttons[i].setFont(new Font("Ariel", Font.PLAIN, 10));
             buttons[i].setName("" + i);
-            //buttons[i].setLayout(null);
-            //buttons[i].getParent().getParent();
             buttons[i].setBounds(sum + i*20, 200, 20 ,60);
             labels[i].setBounds(sum + 2 + i*20, 180, 20 ,20);
             buttons[i].addActionListener(t);
