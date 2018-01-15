@@ -18,7 +18,7 @@ public class main {
         */
 
         connectServer client = new connectServer("10.10.88.157", 12345);
-        client.sendNew("NEW","");
+        client.sendNew("NEW","khen");
 
 
 

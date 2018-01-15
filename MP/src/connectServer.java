@@ -58,7 +58,7 @@ public class connectServer {
         return messagesHandler;
     }
 
-    public void sendNew(String req, String s) {
+    public void sendNew(String req, String mood, String name) {
         try {
             this.messagesHandler = new ReceivedMessagesHandler(client.getInputStream(), client, output, req);
         } catch (IOException e) {
@@ -66,7 +66,9 @@ public class connectServer {
         }
         new Thread(this.messagesHandler).start();
         output.println(req);
-        output.println(s);
+        output.println(mood);
+        output.println(name);
+
     }
 }
 
