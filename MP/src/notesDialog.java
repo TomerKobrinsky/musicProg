@@ -167,7 +167,7 @@ public class notesDialog extends JDialog {
             dispose();
         }
 
-        playNote(duration);
+        //playNote(duration);
     }
 
     private void onDelete()
@@ -196,7 +196,7 @@ public class notesDialog extends JDialog {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
-    private void playNote(double duration)
+    public void playNote(double duration)
     {
         if(player != null)
         {

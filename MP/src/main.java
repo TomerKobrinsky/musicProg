@@ -5,7 +5,9 @@ import org.jfugue.player.Player;
 
 public class main {
     public static void main(String[] args) {
-/*
+
+        MainGUI mm = new MainGUI();
+
         session a = new session();
 
         JFrame frame = new JFrame();
@@ -15,10 +17,9 @@ public class main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1500, 1000); // << not working!!!
         frame.setVisible(true);
-        */
 
-        connectServer client = new connectServer("10.10.88.157", 12345);
-        client.sendNew("NEW","khen");
+     //   connectServer client = new connectServer("10.10.88.157", 12345);
+     //   client.sendNew("NEW","happy","Roei");
 
 
 

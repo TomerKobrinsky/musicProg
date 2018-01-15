@@ -129,9 +129,6 @@ public class sessionFrame extends JFrame {
 
                         isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
-                        //                       // frameBar.changeNote(buttonIndex , "empty" , 0);
-
-
                         while (dialog.getDuration() != 0 && !isValid) //(dialog.getDuration() * 32 + buttonIndex - 1 > barSize || !f.isValidDur(buttonIndex , (int) (dialog.getDuration() * 32))))
                         {
 
@@ -140,6 +137,8 @@ public class sessionFrame extends JFrame {
                             isValid = frameBar.changeNote(buttonIndex , dialog.getChord() , dialog.getDuration());
 
                         }
+
+                        boolean c = false;
 
                         if(dialog.getChord().compareTo("empty") != 0 )
                         {
@@ -155,15 +154,31 @@ public class sessionFrame extends JFrame {
                             {
                                 buttons[buttonIndex + i].setOpaque(true);
                                 buttons[buttonIndex + i].setBackground(randomColor);
-                                //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
+                                if(i == dialog.getDuration() * 32 - 1)
+                                {
+                                    c = true;
+                                }
                             }
+
                         }
 
                         for (int i = buttonIndex + (int)dialog.getDuration()*32; i < frameBar.getBarSize(); i++)
                         {
                             if(frameBar.isNoteFree(i))
                                 buttons[i].setBackground(null);
-                            //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
+                        }
+
+                        while(!c);
+
+                        if(c == true)
+                        {
+                            selectedNote n = new selectedNote(dialog.getChord(), dialog.getDuration());
+                            n.setNoteToPlay();
+                            Player play = new Player();
+                            Pattern firstPattern = new Pattern(n.getNoteToPlay());
+                            firstPattern.setTempo(session.songTempo);
+                            System.out.println("AAAAAAAAAAAAAAAA");
+                            play.play(firstPattern);
                         }
 
                     }
@@ -171,6 +186,8 @@ public class sessionFrame extends JFrame {
                     {
                         b.setBackground(currentColor);
                     }
+
+                   //dialog.playNote(dialog.getDuration());
 
                 }
             }
