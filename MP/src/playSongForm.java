@@ -20,6 +20,7 @@ public class playSongForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Player play = new Player();
+                System.out.println(p);
                 play.play(p);
             }
         });
