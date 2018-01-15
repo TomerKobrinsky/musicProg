@@ -166,8 +166,7 @@ public class sessionFrame extends JFrame {
         });
 
 
-
-                play.setText("Play");
+        play.setText("Play");
 
         play.addActionListener(a);
 
