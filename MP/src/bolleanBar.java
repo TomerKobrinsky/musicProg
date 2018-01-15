@@ -147,7 +147,8 @@ public class bolleanBar {
             barNotes[index].turnToTrueNote("empty", 0);
         }
 
-        public boolean isEmptyNoteInIndex(int index) {
+        public boolean isEmptyNoteInIndex(int index)
+        {
             return (barNotes[index].getNotePitch().compareTo("empty") == 0 && !barNotes[index].getIsFakeNote());
         }
 

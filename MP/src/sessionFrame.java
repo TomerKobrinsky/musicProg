@@ -17,36 +17,100 @@ public class sessionFrame extends JFrame {
 
     public sessionFrame(session session , bolleanBar bar )
     {
-        this.frameSsession = session;
+        frameSsession = session;
         frameBar = bar;
+
         int barSize = bar.getBarSize();
-
-        panel1 = new JPanel();
-        panel1.setLayout(null);
-
-        this.setContentPane(panel1);
-        setSize(1500, 1000);
-        panel1.setBackground(new Color(238,248,255));
-
-
 
         buttons = new JButton[barSize];
         labels = new JLabel[barSize];
+        panel1 = new JPanel();
 
+        panel1.setLayout(null);
+        panel1.setBackground(new Color(238,248,255));
+
+        setContentPane(panel1);
+        setSize(1500, 1000);
+
+        initBarButtonsAndLabels();
+
+
+    }
+
+    public void setLabel(int index , String text)
+    {
+        labels[index].setText(text);
+    }
+
+    public boolean isValidDur(int index , int len)
+    {
+        boolean isFree = true;
+
+        for(int i = 1 ; i < len ; i++)
+        {
+            if(!frameBar.isEmptyNoteInIndex(index + i)) {
+                isFree = false;
+                break;
+            }
+        }
+
+
+        return isFree;
+    }
+
+    private void initBarButtonsAndLabels()
+    {
         JLabel labelBar = new JLabel();
-
         JButton play = new JButton();
+        int barSize = frameBar.getBarSize();
 
+        play.setText("Play");
 
-        ActionListener t  = (new ActionListener() {
+        play.addActionListener(creatPlayAction());
+
+        labelBar.setText("Bar");
+
+        play.setBounds(400, 400, 100 ,50);
+        panel1.add(play);
+
+        nextButton = new JButton("Next");
+        nextButton.setBounds(900, 400, 100 ,50);
+        nextButton.addActionListener(creatNextAction());
+        panel1.add(nextButton);
+
+        int counter = 0;
+        int sum = 350;
+
+        for(int i = 0; i < barSize; i++)
+        {
+            if(counter == 4)
+            {
+                sum += 7;
+                counter = 0;
+            }
+            labels[i] = new JLabel();
+            buttons[i] = new JButton("");
+            buttons[i].setName("" + i);
+            buttons[i].setBounds(sum + i*20, 200, 20 ,60);
+            labels[i].setBounds(sum + 2 + i*20, 180, 20 ,20);
+            buttons[i].addActionListener(creatBarButtonAction());
+
+            panel1.add(labels[i]);
+            panel1.add(buttons[i]);
+
+            counter++;
+        }
+
+    }
+
+    private ActionListener creatBarButtonAction()
+    {
+        ActionListener barButtonAction   = (new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-
                 JButton b = (JButton)e.getSource();
                 int buttonIndex = Integer.parseInt(b.getName());
-
-               // System.out.println(frameBar.isEmptyNoteInIndex(buttonIndex));
                 if(!frameBar.isFakeNoteOnindex(buttonIndex))
                 {
                     Color currentColor = b.getBackground();
@@ -95,10 +159,10 @@ public class sessionFrame extends JFrame {
                             }
                         }
 
-                        for (int i = buttonIndex + (int)dialog.getDuration()*32; i < barSize; i++)
+                        for (int i = buttonIndex + (int)dialog.getDuration()*32; i < frameBar.getBarSize(); i++)
                         {
                             if(frameBar.isNoteFree(i))
-                            buttons[i].setBackground(null);
+                                buttons[i].setBackground(null);
                             //frameBar.ternToFakeNoteInIndex(buttonIndex + i);
                         }
 
@@ -111,24 +175,28 @@ public class sessionFrame extends JFrame {
                 }
             }
         });
+        return barButtonAction;
+    }
 
+    private ActionListener creatPlayAction()
+    {
 
-      ActionListener a  = (new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
+        ActionListener playAction  = (new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frameBar.setBarToPlay();
+                Player play = new Player();
+                Pattern firstPattern = new Pattern(frameBar.getBarToPlay());
+                firstPattern.setTempo(session.songTempo);
+                play.play(firstPattern);
+            }
+        });
 
+        return  playAction;
+    }
 
-             frameBar.setBarToPlay();
-
-             Player play = new Player();
-             Pattern firstPattern = new Pattern(bar.getBarToPlay());
-             firstPattern.setTempo(session.songTempo);
-             System.out.println(frameBar.getSumOfLengths());
-
-
-          }
-      });
-
+    private ActionListener creatNextAction()
+    {
         ActionListener nextAction = (new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,7 +208,7 @@ public class sessionFrame extends JFrame {
                     send.run();
                     while (send.getMessagesHandler().getNewSong() == null){
                         try {
-                           Thread.sleep(1000);
+                            Thread.sleep(1000);
                         } catch (InterruptedException e1) {
                             e1.printStackTrace();
                         }
@@ -151,7 +219,7 @@ public class sessionFrame extends JFrame {
 
                     dispose();
                     JFrame frame = new JFrame();
-                    playSongForm form = new playSongForm(session, p, tempo);
+                    playSongForm form = new playSongForm(frameSsession , p, tempo);
                     frame.setContentPane(form.getPanel());
                     form.setFrame(frame);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -165,79 +233,6 @@ public class sessionFrame extends JFrame {
             }
         });
 
-
-        play.setText("Play");
-
-        play.addActionListener(a);
-
-        labelBar.setText("Bar");
-        //panel1.
-
-
-        play.setBounds(400, 400, 100 ,50);
-        panel1.add(play);
-
-        nextButton = new JButton("Next");
-        nextButton.setBounds(900, 400, 100 ,50);
-        nextButton.addActionListener(nextAction);
-        panel1.add(nextButton);
-
-
-
-        int counter = 0;
-        int sum = 350;
-
-        for(int i = 0; i < barSize; i++)
-        {
-            if(counter == 4)
-            {
-                sum += 7;
-                counter = 0;
-            }
-            labels[i] = new JLabel();
-            buttons[i] = new JButton("");
-            buttons[i].setName("" + i);
-            buttons[i].setBounds(sum + i*20, 200, 20 ,60);
-            labels[i].setBounds(sum + 2 + i*20, 180, 20 ,20);
-            buttons[i].addActionListener(t);
-
-            panel1.add(labels[i]);
-            panel1.add(buttons[i]);
-
-            counter++;
-        }
+        return nextAction;
     }
-
-    public void setLabel(int index , String text)
-    {
-        labels[index].setText(text);
-    }
-
-    public void setLButtonsEnabled(int index , boolean enabled) {
-        buttons[index].setEnabled(enabled);
-    }
-
-
-    public boolean isValidDur(int index , int len)
-    {
-        boolean isFree = true;
-
-        for(int i = 1 ; i < len ; i++)
-        {
-            if(!frameBar.isEmptyNoteInIndex(index + i)) {
-                isFree = false;
-                break;
-            }
-        }
-
-
-        return isFree;
-    }
-
-    private void initBarButtons()
-    {
-
-    }
-
-
 }

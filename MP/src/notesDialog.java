@@ -1,3 +1,6 @@
+import org.jfugue.pattern.Pattern;
+import org.jfugue.player.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -14,11 +17,17 @@ public class notesDialog extends JDialog {
     private String chord;
     private double duration;
     private JButton selectedButton;
+    private selectedNote noteToPlay;
+   // private Pattern patternToPlay;
+    private Player player;
 
 
     public notesDialog(session a) {
         this.a = a;
         setLayout(null);
+
+        player = new Player();
+        noteToPlay = new selectedNote("empty" , 0);
 
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -70,7 +79,9 @@ public class notesDialog extends JDialog {
         ActionListener buttonAction = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(chord != null) {
+
+                if(chord != null)
+                {
                     selectedButton.setEnabled(true);
                     selectedButton.setBackground(null);
                 }
@@ -83,9 +94,13 @@ public class notesDialog extends JDialog {
                 {
                     chord = "R";
                 }
-                else {
+                else
+                    {
 
                     chord = b.getText();
+                    noteToPlay.setNotePitch(chord);
+
+                    playNote(0.5);
                 }
                 selectedButton = b;
             }
@@ -151,6 +166,8 @@ public class notesDialog extends JDialog {
         if (this.chord != null) {
             dispose();
         }
+
+        playNote(duration);
     }
 
     private void onDelete()
@@ -179,7 +196,21 @@ public class notesDialog extends JDialog {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void playNote(double duration)
+    {
+        if(player != null)
+        {
+            noteToPlay.setLength(duration);
+            noteToPlay.setNoteToPlay();
 
-
+            Pattern patternToPlay = new Pattern(noteToPlay.getNoteToPlay());
+            patternToPlay.setTempo(session.songTempo);
+            player.play(patternToPlay);
+        }
+        else
+        {
+            System.out.println("BOO");
+        }
+    }
 
 }
