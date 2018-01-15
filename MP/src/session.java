@@ -1,5 +1,5 @@
 public class session {
-	public enum Mood {
+    public enum Mood {
 		Happy, Sad
 	}
 
@@ -161,8 +161,14 @@ public class session {
 	/**
 	 * initialize the current session
 	 */
-	public session() {
-		Mood Input = Mood.Sad;
+	public session(String mood, int songKeyNum) {
+		Mood Input;
+		if(mood.equals("Happy")) {
+			Input = Mood.Happy;
+		}
+		else{
+			Input = Mood.Sad;
+		}
 		setKey(Input);
 		setChords();
 		setTempo();

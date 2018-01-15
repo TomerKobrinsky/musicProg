@@ -58,7 +58,7 @@ public class connectServer {
         return messagesHandler;
     }
 
-    public void sendNew(String req, String mood, String name) {
+    public void sendMood(String req, String mood, String name) {
         try {
             this.messagesHandler = new ReceivedMessagesHandler(client.getInputStream(), client, output, req);
         } catch (IOException e) {
@@ -80,6 +80,7 @@ class ReceivedMessagesHandler implements Runnable {
     private String newSong;
     private String tempo;
     private String partnerName;
+    private int songKeyNum;
 
 
     public ReceivedMessagesHandler(InputStream server, Socket client, PrintStream output, String req) {
@@ -100,6 +101,7 @@ class ReceivedMessagesHandler implements Runnable {
 
         else if(req.equals("NEW")){
             partnerName = s.nextLine();
+            songKeyNum = Integer.parseInt(s.nextLine());
             System.out.println(partnerName);
         }
         s.close();
@@ -122,4 +124,9 @@ class ReceivedMessagesHandler implements Runnable {
     public String getPartnerName() {
         return partnerName;
     }
+
+    public int getSongKeyNum() {
+        return songKeyNum;
+    }
+
 }
