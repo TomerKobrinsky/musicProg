@@ -13,7 +13,7 @@ public class playSongForm {
     private session a;
     private Pattern p;
 
-    public playSongForm(session a, Pattern p) {
+    public playSongForm(session a, Pattern p ,int tempo ) {
         this.a = a;
         this.p = p;
         PLAYButton.addActionListener(new ActionListener() {

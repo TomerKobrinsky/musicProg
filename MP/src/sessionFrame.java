@@ -21,7 +21,6 @@ public class sessionFrame extends JFrame {
         frameBar = bar;
         int barSize = bar.getBarSize();
 
-
         panel1 = new JPanel();
         panel1.setLayout(null);
 
@@ -118,42 +117,8 @@ public class sessionFrame extends JFrame {
           @Override
           public void actionPerformed(ActionEvent e) {
 
-              /*
-              int i = 0 ;
-              int counter;
-              int j;
-              while(i < barSize)
-              {
-                  if(frameBar.isEmptyNoteInIndex(i))
-                  {
-                      counter = 1;
-                      j = i + 1;
-                      while(j < barSize && frameBar.isEmptyNoteInIndex(j))
-                      {
-                          counter++;
-                          j++;
-                      }
 
-                      if(j < barSize)
-                      {
-                        // counter--;
-                      }
-
-                      frameBar.changeNote( i , "R" , (counter/32.0));
-                      i = j;
-                  }
-                  else
-                  {
-                       i++;
-                  }
-              }
-              */
-           //   frameBar.printBar();
-
-            //  if()
              frameBar.setBarToPlay();
-
-            // for(int i < x)
 
              Player play = new Player();
              Pattern firstPattern = new Pattern(bar.getBarToPlay());
@@ -171,7 +136,7 @@ public class sessionFrame extends JFrame {
                 String song = frameBar.getBarToPlay();
 
                 try {
-                    sendSong send = new sendSong("192.168.0.108", 12345, song);
+                    sendSong send = new sendSong("10.10.88.157", 12345, song);
                     send.run();
                     while (send.getMessagesHandler().getNewSong() == null){
                         try {
@@ -182,11 +147,11 @@ public class sessionFrame extends JFrame {
                     }
                     System.out.println(send.getMessagesHandler().getNewSong());
                     Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
-                    p.setTempo(Integer.parseInt(send.getMessagesHandler().getTempo()));
+                    int tempo = Integer.parseInt(send.getMessagesHandler().getTempo());
 
                     dispose();
                     JFrame frame = new JFrame();
-                    playSongForm form = new playSongForm(session, p);
+                    playSongForm form = new playSongForm(session, p, tempo);
                     frame.setContentPane(form.getPanel());
                     form.setFrame(frame);
                     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -269,5 +234,11 @@ public class sessionFrame extends JFrame {
 
         return isFree;
     }
+
+    private void initBarButtons()
+    {
+
+    }
+
 
 }
