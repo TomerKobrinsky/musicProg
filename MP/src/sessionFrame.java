@@ -132,7 +132,7 @@ public class sessionFrame extends JFrame {
         ActionListener nextAction = (new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frameBar.setBarToPlay();
+             /*   frameBar.setBarToPlay();
                 String song = frameBar.getBarToPlay();
 
                 try {
@@ -160,7 +160,7 @@ public class sessionFrame extends JFrame {
 
                 } catch (IOException e1) {
                     e1.printStackTrace();
-                }
+                }*/
 
             }
         });
