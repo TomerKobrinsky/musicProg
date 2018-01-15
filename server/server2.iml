@@ -7,10 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/computer music/project/jfugue-5.0.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/../jfugue-5.0.9.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
