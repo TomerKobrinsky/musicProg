@@ -35,6 +35,4 @@ public class welcomeForm extends JFrame{
     public JPanel getPanel() {
         return this.panel1;
     }
-
-
 }
