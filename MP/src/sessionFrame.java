@@ -14,9 +14,11 @@ public class sessionFrame extends JFrame {
     private bolleanBar frameBar;
     private session frameSsession;
     private JButton nextButton;
+    private connectServer client;
 
-    public sessionFrame(session session , bolleanBar bar )
+    public sessionFrame(connectServer client, session session, bolleanBar bar)
     {
+        this.client = client;
         frameSsession = session;
         frameBar = bar;
 
@@ -217,35 +219,32 @@ public class sessionFrame extends JFrame {
         ActionListener nextAction = (new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-             /*   frameBar.setBarToPlay();
+                frameBar.setBarToPlay();
                 String song = frameBar.getBarToPlay();
 
-                try {
-                    sendSong send = new sendSong("10.10.88.157", 12345, song);
-                    send.run();
-                    while (send.getMessagesHandler().getNewSong() == null){
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e1) {
-                            e1.printStackTrace();
-                        }
+                client.sendSong("SONG", song);
+                waitDialog dialog = new waitDialog();
+                dialog.setBounds(550, 250, 400, 300);
+                dialog.setVisible(true);
+                while (client.getMessagesHandler().getNewSong() == null) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
                     }
-                    System.out.println(send.getMessagesHandler().getNewSong());
-                    Pattern p = new Pattern(send.getMessagesHandler().getNewSong());
-                    int tempo = Integer.parseInt(send.getMessagesHandler().getTempo());
+                }
+                dialog.dispose();
+                Pattern p = new Pattern(client.getMessagesHandler().getNewSong());
+                int tempo = Integer.parseInt(client.getMessagesHandler().getTempo());
 
-                    dispose();
-                    JFrame frame = new JFrame();
-                    playSongForm form = new playSongForm(frameSsession , p, tempo);
-                    frame.setContentPane(form.getPanel());
-                    form.setFrame(frame);
-                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    frame.setSize(1500, 1000); // << not working!!!
-                    frame.setVisible(true);
-
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }*/
+                dispose();
+                JFrame frame = new JFrame();
+                playSongForm form = new playSongForm(frameSsession, p, tempo);
+                frame.setContentPane(form.getPanel());
+                form.setFrame(frame);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                frame.setSize(1500, 1000); // << not working!!!
+                frame.setVisible(true);
 
             }
         });

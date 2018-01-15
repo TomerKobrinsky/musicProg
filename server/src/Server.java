@@ -78,12 +78,18 @@ public class Server {
     }
 
     public void createHappyPartners(waitHappy waitHappy, String name, PrintStream printStreamClient) {
+        int songKeyNum = (int) (12 * Math.random());
         waitHappy.printStreamClient.println(name);
+        waitHappy.printStreamClient.println(songKeyNum);
         printStreamClient.println(waitHappy.name);
+        printStreamClient.println(songKeyNum);
     }
     public void createSadPartners(waitSad waitSad, String name, PrintStream printStreamClient) {
+        int songKeyNum = (int) (12 * Math.random());
         waitSad.printStreamClient.println(name);
+        waitSad.printStreamClient.println(songKeyNum);
         printStreamClient.println(waitSad.name);
+        printStreamClient.println(songKeyNum);
     }
 }
 
@@ -116,17 +122,17 @@ class ClientHandler implements Runnable {
             if(req.equals("NEW")){
                 String mood = sc.nextLine();
                 String name = sc.nextLine();
-                if(mood.equals("happy") && server.getWaitHappy() == null){
+                if(mood.equals("Happy") && server.getWaitHappy() == null){
                     server.setWaitHappy(new waitHappy(name,printStreamClient));
-                }else if(mood.equals("happy") && server.getWaitHappy() != null){
+                }else if(mood.equals("Happy") && server.getWaitHappy() != null){
                     server.createHappyPartners(server.getWaitHappy(), name, printStreamClient);
-                }else if(mood.equals("sad") && server.getWaitSad() == null){
+                }else if(mood.equals("Sad") && server.getWaitSad() == null){
                     server.setWaitSad(new waitSad(name,printStreamClient));
-                }else if(mood.equals("sad") && server.getWaitSad() != null){
+                }else if(mood.equals("Sad") && server.getWaitSad() != null){
                     server.createSadPartners(server.getWaitSad(), name, printStreamClient);
                 }
             }
-            if(counter == 1 && req.equals("SONG")) {
+            else if(counter == 1 && req.equals("SONG")) {
                 songs[0] = sc.nextLine();
             }
             else if(counter == 1 && req.equals("SONG")) {

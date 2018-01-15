@@ -9,16 +9,29 @@ public class moodForm {
     private JComboBox textComboBox;
     private JLabel header;
     private JButton nextButton;
-    private session a;
+    private connectServer client;
 
-    public moodForm(session a, String name) {
-        this.a = a;
+    public moodForm(connectServer client, String name) {
         header.setText("Hello "+ name);
+        this.client = client;
         nextButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                sessionFrame f = new sessionFrame(a , new bolleanBar(1));
+                client.sendMood("MOOD", textComboBox.getSelectedItem().toString(), name);
+                waitDialog dialog = new waitDialog();
+                dialog.setBounds(550,250,400,300);
+                dialog.setVisible(true);
+                while (client.getMessagesHandler().getPartnerName() == null) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                    JOptionPane.getRootFrame().dispose();
+                }
+                dialog.dispose();
+                session session = new session(textComboBox.getSelectedItem().toString(),client.getMessagesHandler().getSongKeyNum());
+                sessionFrame f = new sessionFrame(client,session, new bolleanBar(1));
                 f.setVisible(true);
             }
         });
