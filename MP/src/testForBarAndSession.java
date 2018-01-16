@@ -6,6 +6,8 @@ import javax.swing.*;
 
 		public class testForBarAndSession {
 		public static void main(String[] args){
+
+			/*
 			session a= new session();
 			String[] notes = new String[a.getKeyNotes().length + 1];
 			for (int i = 0; i < a.getKeyNotes().length; i++) {
@@ -30,7 +32,7 @@ import javax.swing.*;
 			play.play(firstPattern);
 			System.out.println(bar.getBarToPlay());
 			
-			
+			*/
 		}
 	}
 
