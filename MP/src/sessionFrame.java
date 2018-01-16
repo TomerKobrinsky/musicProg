@@ -4,8 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Random;
+<<<<<<< HEAD
 import java.util.concurrent.locks.LockSupport;
 
+=======
+
+import jdk.nashorn.api.tree.WhileLoopTree;
+>>>>>>> c0d55bc6c6e3134bbf6187fab5643346384d1ae8
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 public class sessionFrame extends JFrame {
@@ -153,21 +158,7 @@ public class sessionFrame extends JFrame {
                         {
                             f.setLabel(buttonIndex, dialog.getChord());
 
-                            Random r = new Random();
-                            Color randomColor = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat());
-
-                            b.setOpaque(true);
-                            b.setBackground(randomColor);
-
-                            for (int i = 1; i < dialog.getDuration() * 32; i++)
-                            {
-                                buttons[buttonIndex + i].setOpaque(true);
-                                buttons[buttonIndex + i].setBackground(randomColor);
-                                if(i == dialog.getDuration() * 32 - 1)
-                                {
-                                    c = true;
-                                }
-                            }
+                             c = setColor(b,buttonIndex,dialog);
 
                         }
 
@@ -177,10 +168,19 @@ public class sessionFrame extends JFrame {
                                 buttons[i].setBackground(null);
                         }
 
-                        while(!c);
+                        while (!c) {
 
-                        if(c == true)
-                        {
+                            try {
+
+                                wait();
+                            } catch (Exception e1) {
+
+                                System.out.println("ASDSDsd");
+
+                            }
+                        }
+
+                        if(buttons[buttonIndex + (int)dialog.getDuration() * 32 - 1].getBackground() != null) {
                             selectedNote n = new selectedNote(dialog.getChord(), dialog.getDuration());
                             n.setNoteToPlay();
                             Player play = new Player();
@@ -225,7 +225,8 @@ public class sessionFrame extends JFrame {
     {
         ActionListener nextAction = (new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 frameBar.setBarToPlay();
                 String song = frameBar.getBarToPlay();
 
@@ -258,5 +259,26 @@ public class sessionFrame extends JFrame {
         });
 
         return nextAction;
+    }
+
+    private boolean setColor(JButton b , int buttonIndex , notesDialog dialog)
+    {
+        Random r = new Random();
+        Color randomColor = new Color(r.nextFloat(), r.nextFloat(), r.nextFloat());
+
+        b.setOpaque(true);
+        b.setBackground(randomColor);
+
+        for (int i = 1; i < dialog.getDuration() * 32; i++)
+        {
+            buttons[buttonIndex + i].setOpaque(true);
+            buttons[buttonIndex + i].setBackground(randomColor);
+            if(i == dialog.getDuration() * 32 - 1)
+            {
+               return true;
+            }
+        }
+
+        return false;
     }
 }
