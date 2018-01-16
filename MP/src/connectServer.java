@@ -99,7 +99,7 @@ class ReceivedMessagesHandler implements Runnable {
             System.out.println(newSong+"    "+ tempo);
         }
 
-        else if(req.equals("NEW")){
+        else if(req.equals("MOOD")){
             partnerName = s.nextLine();
             songKeyNum = Integer.parseInt(s.nextLine());
             System.out.println(partnerName);

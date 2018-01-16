@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.locks.LockSupport;
+
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 public class sessionFrame extends JFrame {
@@ -15,8 +17,9 @@ public class sessionFrame extends JFrame {
     private session frameSsession;
     private JButton nextButton;
     private connectServer client;
+    private JLabel header;
 
-    public sessionFrame(connectServer client, session session, bolleanBar bar)
+    public sessionFrame(connectServer client, session session, bolleanBar bar, String myName, String partnerName)
     {
         this.client = client;
         frameSsession = session;
@@ -34,6 +37,10 @@ public class sessionFrame extends JFrame {
         setContentPane(panel1);
         setSize(1500, 1000);
 
+        header = new JLabel();
+        header.setText("Hey "+myName+" you're gonna create a song with "+ partnerName);
+        header.setBounds(300,10, 600,200);
+        panel1.add(header);
         initBarButtonsAndLabels();
 
 
@@ -223,17 +230,18 @@ public class sessionFrame extends JFrame {
                 String song = frameBar.getBarToPlay();
 
                 client.sendSong("SONG", song);
-                waitDialog dialog = new waitDialog();
-                dialog.setBounds(550, 250, 400, 300);
-                dialog.setVisible(true);
+                //waitDialog dialog = new waitDialog();
+                //dialog.setBounds(550, 250, 400, 300);
+                //dialog.setVisible(true);
                 while (client.getMessagesHandler().getNewSong() == null) {
                     try {
+                        System.out.println("waiting");
                         Thread.sleep(1000);
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
                 }
-                dialog.dispose();
+                //dialog.dispose();
                 Pattern p = new Pattern(client.getMessagesHandler().getNewSong());
                 int tempo = Integer.parseInt(client.getMessagesHandler().getTempo());
 

@@ -15,8 +15,8 @@ public class Server {
     private List<PrintStream> clients;
     private ServerSocket server;
     private String[] songs;
-    private waitHappy waitHappy;
-    private waitSad waitSad;
+    private wait waitHappy;
+    private wait waitSad;
 
 
     public static void main(String[] args) throws IOException {
@@ -52,19 +52,19 @@ public class Server {
         }
     }
 
-    public waitHappy getWaitHappy() {
+    public wait getWaitHappy() {
         return waitHappy;
     }
 
-    public waitSad getWaitSad() {
+    public wait getWaitSad() {
         return waitSad;
     }
 
-    public void setWaitHappy(waitHappy waitHappy) {
+    public void setWaitHappy(wait waitHappy) {
         this.waitHappy = waitHappy;
     }
 
-    public void setWaitSad(waitSad waitSad) {
+    public void setWaitSad(wait waitSad) {
         this.waitSad = waitSad;
     }
 
@@ -77,18 +77,11 @@ public class Server {
         }
     }
 
-    public void createHappyPartners(waitHappy waitHappy, String name, PrintStream printStreamClient) {
+    public void createPartners(wait waitClient, String name, PrintStream printStreamClient) {
         int songKeyNum = (int) (12 * Math.random());
-        waitHappy.printStreamClient.println(name);
-        waitHappy.printStreamClient.println(songKeyNum);
-        printStreamClient.println(waitHappy.name);
-        printStreamClient.println(songKeyNum);
-    }
-    public void createSadPartners(waitSad waitSad, String name, PrintStream printStreamClient) {
-        int songKeyNum = (int) (12 * Math.random());
-        waitSad.printStreamClient.println(name);
-        waitSad.printStreamClient.println(songKeyNum);
-        printStreamClient.println(waitSad.name);
+        waitClient.printStreamClient.println(name);
+        waitClient.printStreamClient.println(songKeyNum);
+        printStreamClient.println(waitClient.name);
         printStreamClient.println(songKeyNum);
     }
 }
@@ -119,17 +112,17 @@ class ClientHandler implements Runnable {
 
         while (sc.hasNextLine()) {
             String req = sc.nextLine();
-            if(req.equals("NEW")){
+            if(req.equals("MOOD")){
                 String mood = sc.nextLine();
                 String name = sc.nextLine();
                 if(mood.equals("Happy") && server.getWaitHappy() == null){
-                    server.setWaitHappy(new waitHappy(name,printStreamClient));
+                    server.setWaitHappy(new wait(name,printStreamClient));
                 }else if(mood.equals("Happy") && server.getWaitHappy() != null){
-                    server.createHappyPartners(server.getWaitHappy(), name, printStreamClient);
+                    server.createPartners(server.getWaitHappy(), name, printStreamClient);
                 }else if(mood.equals("Sad") && server.getWaitSad() == null){
-                    server.setWaitSad(new waitSad(name,printStreamClient));
+                    server.setWaitSad(new wait(name,printStreamClient));
                 }else if(mood.equals("Sad") && server.getWaitSad() != null){
-                    server.createSadPartners(server.getWaitSad(), name, printStreamClient);
+                    server.createPartners(server.getWaitSad(), name, printStreamClient);
                 }
             }
             else if(counter == 1 && req.equals("SONG")) {

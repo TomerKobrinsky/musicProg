@@ -11,7 +11,7 @@ public class welcomeForm extends JFrame{
     private JButton nextButton;
     private connectServer client;
 
-    public welcomeForm(connectServer çlient) {
+    public welcomeForm(connectServer client) {
         this.client = client;
         nextButton.addActionListener(new ActionListener() {
             @Override

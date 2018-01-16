@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.locks.LockSupport;
 
 public class moodForm {
     private JFrame frame;
@@ -18,20 +19,22 @@ public class moodForm {
             @Override
             public void actionPerformed(ActionEvent e) {
                 client.sendMood("MOOD", textComboBox.getSelectedItem().toString(), name);
-                waitDialog dialog = new waitDialog();
-                dialog.setBounds(550,250,400,300);
-                dialog.setVisible(true);
+                //waitDialog dialog = new waitDialog();
+                //dialog.setBounds(550,250,400,300);
+               // dialog.setVisible(true);
                 while (client.getMessagesHandler().getPartnerName() == null) {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e1) {
                         e1.printStackTrace();
                     }
-                    JOptionPane.getRootFrame().dispose();
                 }
-                dialog.dispose();
-                session session = new session(textComboBox.getSelectedItem().toString(),client.getMessagesHandler().getSongKeyNum());
-                sessionFrame f = new sessionFrame(client,session, new bolleanBar(1));
+                String partnerName = client.getMessagesHandler().getPartnerName();
+                int songKeyNum = client.getMessagesHandler().getSongKeyNum();
+                //dialog.dispose();
+                session session = new session((String) textComboBox.getSelectedItem(), songKeyNum);
+                sessionFrame f = new sessionFrame(client, session, new bolleanBar(1), name, partnerName);
+                frame.dispose();
                 f.setVisible(true);
             }
         });

@@ -3,7 +3,7 @@ import javax.swing.*;
 
 	import org.jfugue.pattern.Pattern;
 	import org.jfugue.player.Player;
-
+/*
 		public class testForBarAndSession {
 		public static void main(String[] args){
 			session a= new session();
@@ -33,5 +33,5 @@ import javax.swing.*;
 			
 		}
 	}
-
+*/
 
