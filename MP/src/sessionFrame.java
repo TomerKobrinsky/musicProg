@@ -159,7 +159,7 @@ public class sessionFrame extends JFrame {
                             if(frameBar.isNoteFree(i))
                                 buttons[i].setBackground(null);
                         }
-
+/*
                         while (!c) {
 
                             try {
@@ -181,7 +181,7 @@ public class sessionFrame extends JFrame {
                             System.out.println("AAAAAAAAAAAAAAAA");
                             play.play(firstPattern);
                         }
-
+*/
                     }
                     else
                     {
