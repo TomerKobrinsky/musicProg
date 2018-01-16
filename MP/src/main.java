@@ -5,7 +5,7 @@ import org.jfugue.player.Player;
 
 public class main {
     public static void main(String[] args) {
-        connectServer client = new connectServer("10.10.88.157", 12345);
+        connectServer client = new connectServer("127.0.0.1", 12345);
         JFrame frame = new JFrame();
         welcomeForm wf = new welcomeForm(client);
         frame.setContentPane(wf.getPanel());
