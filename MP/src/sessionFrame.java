@@ -2,15 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.Random;
-<<<<<<< HEAD
-import java.util.concurrent.locks.LockSupport;
-
-=======
-
-import jdk.nashorn.api.tree.WhileLoopTree;
->>>>>>> c0d55bc6c6e3134bbf6187fab5643346384d1ae8
 import org.jfugue.pattern.Pattern;
 import org.jfugue.player.Player;
 public class sessionFrame extends JFrame {
