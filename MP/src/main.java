@@ -5,10 +5,7 @@ import org.jfugue.player.Player;
 
 public class main {
     public static void main(String[] args) {
-        connectServer client = new connectServer("127.0.0.1", 12345);
-        connectServer client2 = new connectServer("127.0.0.1", 12345);
-        client2.sendMood("MOOD","Happy", "khen");
-        client2.sendSong("SONG","Dw");
+        connectServer client = new connectServer("10.0.0.13", 12345);
 
         JFrame frame = new JFrame();
         welcomeForm wf = new welcomeForm(client);
