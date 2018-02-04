@@ -17,6 +17,9 @@ public class Server {
     private String[] songs;
     private wait waitHappy;
     private wait waitSad;
+    private boolean lock1;
+    private boolean lock2;
+
 
 
     public static void main(String[] args) throws IOException {
@@ -27,7 +30,12 @@ public class Server {
         this.port = port;
         this.clients = new ArrayList<PrintStream>();
         this.songs = new String[2];
+        this.lock1 = false;
+        this.lock2 =false;
     }
+
+
+
 
     public void run() throws IOException {
         server = new ServerSocket(port) {
@@ -46,9 +54,8 @@ public class Server {
             PrintStream printStreamClient = new PrintStream(client.getOutputStream());
             // add client message to list
             this.clients.add(printStreamClient);
-
             // create a new thread for client handling
-            new Thread(new ClientHandler(this, printStreamClient, client.getInputStream(), this.clients.size(), this.songs)).start();
+            new Thread(new ClientHandler(this, printStreamClient, client.getInputStream(), this.songs)).start();
         }
     }
 
@@ -75,6 +82,8 @@ public class Server {
             client.println(song);
             client.println(songTempo);
         }
+        setLock1(false);
+        setLock2(false);
     }
 
     public void createPartners(wait waitClient, String name, PrintStream printStreamClient) {
@@ -83,23 +92,37 @@ public class Server {
         waitClient.printStreamClient.println(songKeyNum);
         printStreamClient.println(waitClient.name);
         printStreamClient.println(songKeyNum);
+
+    }
+
+    public void setLock1(boolean lock1) {
+        this.lock1 = lock1;
+    }
+
+    public void setLock2(boolean lock2) {
+        this.lock2 = lock2;
+    }
+
+    public boolean isLock1() {
+        return lock1;
+    }
+
+    public boolean isLock2() {
+        return lock2;
     }
 }
 
 class ClientHandler implements Runnable {
 
-    private final String[] songs;
-    private int counter;
+    private String[] songs;
     private Server server;
     private InputStream clientInputStream;
     private PrintStream printStreamClient;
-    private String name;
 
-    public ClientHandler(Server server, PrintStream printStreamClient, InputStream clientInputStream, int size, String[] songs) {
+    public ClientHandler(Server server, PrintStream printStreamClient, InputStream clientInputStream, String[] songs) {
         this.server = server;
         this.clientInputStream = clientInputStream;
         this.printStreamClient = printStreamClient;
-        this.counter = size;
         this.songs = songs;
     }
 
@@ -112,6 +135,7 @@ class ClientHandler implements Runnable {
 
         while (sc.hasNextLine()) {
             String req = sc.nextLine();
+            System.out.println(req);
             if(req.equals("MOOD")){
                 String mood = sc.nextLine();
                 String name = sc.nextLine();
@@ -119,16 +143,23 @@ class ClientHandler implements Runnable {
                     server.setWaitHappy(new wait(name,printStreamClient));
                 }else if(mood.equals("Happy") && server.getWaitHappy() != null){
                     server.createPartners(server.getWaitHappy(), name, printStreamClient);
+                    server.setWaitHappy(null);
                 }else if(mood.equals("Sad") && server.getWaitSad() == null){
                     server.setWaitSad(new wait(name,printStreamClient));
                 }else if(mood.equals("Sad") && server.getWaitSad() != null){
                     server.createPartners(server.getWaitSad(), name, printStreamClient);
+                    server.setWaitHappy(null);
                 }
             }
-            else if(counter == 1 && req.equals("SONG")) {
+         //   System.out.println(sc.nextLine());
+           // System.out.println(sc.nextLine());
+
+            if(req.equals("SONG") && !server.isLock1()) {
+                server.setLock1(true);
                 songs[0] = sc.nextLine();
             }
-            else if(counter == 1 && req.equals("SONG")) {
+            else if(req.equals("SONG") && !server.isLock2()) {
+                server.setLock2(true);
                 songs[1] = sc.nextLine();
                 server.generateSongsTogether(songs[0], songs[1], songTempo);
             }

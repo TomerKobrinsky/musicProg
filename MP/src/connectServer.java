@@ -104,13 +104,6 @@ class ReceivedMessagesHandler implements Runnable {
             songKeyNum = Integer.parseInt(s.nextLine());
             System.out.println(partnerName);
         }
-        s.close();
-        try {
-            output.close();
-            client.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public String getNewSong() {

@@ -228,6 +228,7 @@ public class sessionFrame extends JFrame {
                 //dialog.setVisible(true);
                 while (client.getMessagesHandler().getNewSong() == null) {
                     try {
+                        System.out.println(client.getMessagesHandler().getNewSong());
                         System.out.println("waiting");
                         Thread.sleep(1000);
                     } catch (InterruptedException e1) {
